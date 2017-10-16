@@ -1,7 +1,7 @@
-package com.wniemiec.booklibrary.renting;
+package com.wniemiec.booklibrary.business.renting;
 
-import com.wniemiec.booklibrary.book_copy.BookCopy;
-import com.wniemiec.booklibrary.reader.Reader;
+import com.wniemiec.booklibrary.business.book_copy.BookCopy;
+import com.wniemiec.booklibrary.business.reader.Reader;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

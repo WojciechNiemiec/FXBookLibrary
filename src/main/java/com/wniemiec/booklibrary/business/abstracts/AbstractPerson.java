@@ -1,4 +1,4 @@
-package com.wniemiec.booklibrary.abstracts;
+package com.wniemiec.booklibrary.business.abstracts;
 
 import lombok.Data;
 

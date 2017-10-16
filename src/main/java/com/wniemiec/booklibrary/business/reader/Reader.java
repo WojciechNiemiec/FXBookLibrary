@@ -1,14 +1,17 @@
-package com.wniemiec.booklibrary.reader;
+package com.wniemiec.booklibrary.business.reader;
 
-import com.wniemiec.booklibrary.abstracts.AbstractPerson;
-import com.wniemiec.booklibrary.renting.Renting;
+import com.wniemiec.booklibrary.business.abstracts.AbstractPerson;
+import com.wniemiec.booklibrary.business.address.Address;
+import com.wniemiec.booklibrary.business.renting.Renting;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
@@ -20,8 +23,11 @@ public class Reader extends AbstractPerson {
     @Column(name = "birth_date")
     private ZonedDateTime birthDate;
 
-    @Column(name = "pesel")
-    private String pesel;
+    @Column(name = "pesel", precision = 11)
+    private BigDecimal pesel;
+
+    @Embedded
+    private Address address;
 
     @OneToMany
     private Set<Renting> rentings;

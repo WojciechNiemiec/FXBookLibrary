@@ -1,8 +1,8 @@
-package com.wniemiec.booklibrary.book_copy;
+package com.wniemiec.booklibrary.business.book_copy;
 
-import com.wniemiec.booklibrary.abstracts.AbstractEntity;
-import com.wniemiec.booklibrary.release.Release;
-import com.wniemiec.booklibrary.renting.Renting;
+import com.wniemiec.booklibrary.business.abstracts.AbstractEntity;
+import com.wniemiec.booklibrary.business.release.Release;
+import com.wniemiec.booklibrary.business.renting.Renting;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.wniemiec.booklibrary.renting;
+package com.wniemiec.booklibrary.business.renting;
 
 import lombok.Data;
 
