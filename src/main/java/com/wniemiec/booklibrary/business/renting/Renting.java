@@ -1,10 +1,10 @@
 package com.wniemiec.booklibrary.business.renting;
 
+import com.wniemiec.booklibrary.business.book_copy.BookCopy;
+import com.wniemiec.booklibrary.business.reader.Reader;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 
@@ -12,7 +12,15 @@ import java.time.ZonedDateTime;
 @Data
 public class Renting implements Serializable {
     @EmbeddedId
-    private RentingKey primaryKey;
+    private RentingId primaryKey;
+
+    @ManyToOne
+    @MapsId("bookCopyId")
+    private BookCopy bookCopy;
+
+    @ManyToOne
+    @MapsId("readerId")
+    private Reader reader;
 
     @Column(name = "renting_date", nullable = false)
     private ZonedDateTime rentingDate;

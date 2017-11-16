@@ -3,9 +3,8 @@ package com.wniemiec.booklibrary.business.reader;
 import com.wniemiec.booklibrary.business.abstracts.AbstractPerson;
 import com.wniemiec.booklibrary.business.address.Address;
 import com.wniemiec.booklibrary.business.renting.Renting;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -16,8 +15,7 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity(name = "reader")
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class Reader extends AbstractPerson {
     @Column(name = "birth_date")
@@ -29,6 +27,6 @@ public class Reader extends AbstractPerson {
     @Embedded
     private Address address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "reader")
     private Set<Renting> rentings;
 }

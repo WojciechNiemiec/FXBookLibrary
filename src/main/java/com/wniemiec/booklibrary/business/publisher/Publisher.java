@@ -3,6 +3,7 @@ package com.wniemiec.booklibrary.business.publisher;
 import com.wniemiec.booklibrary.business.abstracts.AbstractEntity;
 import com.wniemiec.booklibrary.business.address.Address;
 import com.wniemiec.booklibrary.business.book.Book;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +16,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity(name = "publisher")
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class Publisher extends AbstractEntity {
     @Column(name = "name")
@@ -28,6 +28,6 @@ public class Publisher extends AbstractEntity {
     @Embedded
     private Address address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "publisher")
     private Set<Book> books;
 }

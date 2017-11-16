@@ -1,7 +1,10 @@
 package com.wniemiec.booklibrary;
 
-public class App {
+import com.wniemiec.booklibrary.desktop.DesktopApp;
+import javafx.application.Application;
+
+public class Main {
     public static void main(String[] args) {
-        System.out.println("App works");
+        Application.launch(DesktopApp.class);
     }
 }

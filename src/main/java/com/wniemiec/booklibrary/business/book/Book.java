@@ -1,22 +1,20 @@
 package com.wniemiec.booklibrary.business.book;
 
 import com.wniemiec.booklibrary.business.abstracts.AbstractEntity;
-import com.wniemiec.booklibrary.business.author_book.AuthorToBook;
-import com.wniemiec.booklibrary.business.book_genre.BookToGenre;
+import com.wniemiec.booklibrary.business.author.Author;
+import com.wniemiec.booklibrary.business.genre.Genre;
 import com.wniemiec.booklibrary.business.publisher.Publisher;
 import com.wniemiec.booklibrary.business.release.Release;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "book")
-@Getter
+@Data
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class Book extends AbstractEntity {
@@ -32,12 +30,12 @@ public class Book extends AbstractEntity {
     @ManyToOne
     private Publisher publisher;
 
-    @OneToMany
-    private Set<AuthorToBook> authors;
+    @ManyToMany
+    private Set<Author> authors;
 
-    @OneToMany
+    @OneToMany(mappedBy = "book")
     private Set<Release> releases;
 
-    @OneToMany
-    private Set<BookToGenre> genres;
+    @ManyToMany
+    private Set<Genre> genres;
 }

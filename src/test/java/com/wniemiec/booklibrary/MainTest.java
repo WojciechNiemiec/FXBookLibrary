@@ -5,34 +5,29 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple App.
+ * Generated test for Main.
  */
-public class AppTest 
-    extends TestCase
-{
+public class MainTest extends TestCase {
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
-    {
+    public MainTest(String testName ) {
         super( testName );
     }
 
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
+    public static Test suite() {
+        return new TestSuite( MainTest.class );
     }
 
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
-    {
+    public void testApp() {
         assertTrue( true );
     }
 }
