@@ -11,15 +11,15 @@ import java.time.ZonedDateTime;
 @Entity(name = "renting")
 @Data
 public class Renting implements Serializable {
-    @EmbeddedId
-    private RentingId primaryKey;
+
+    @Id
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne
-    @MapsId("bookCopyId")
     private BookCopy bookCopy;
 
     @ManyToOne
-    @MapsId("readerId")
     private Reader reader;
 
     @Column(name = "renting_date", nullable = false)

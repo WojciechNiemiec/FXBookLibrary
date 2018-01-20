@@ -22,7 +22,7 @@ public class HibernateUtil {
                     .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/library")
                     .setProperty("hibernate.connection.username", "root")
                     .setProperty("hibernate.connection.password", "root")
-                    .setProperty("hibernate.hbm2ddl.auto", "create-drop")
+                    .setProperty("hibernate.hbm2ddl.auto", "update")
                     .setProperty("hibernate.show_sql", "true")
                     .addAnnotatedClass(Author.class)
                     .addAnnotatedClass(Book.class)

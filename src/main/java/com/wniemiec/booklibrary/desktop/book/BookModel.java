@@ -1,38 +1,35 @@
 package com.wniemiec.booklibrary.desktop.book;
 
 import com.wniemiec.booklibrary.business.book.BookDTO;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Set;
 
 public class BookModel {
+
     private final StringProperty ISBN = new SimpleStringProperty("");
     private final StringProperty title = new SimpleStringProperty("");
     private final StringProperty authors = new SimpleStringProperty("");
     private final StringProperty genres = new SimpleStringProperty("");
     private final StringProperty publisher = new SimpleStringProperty("");
-    private final BooleanProperty availability = new SimpleBooleanProperty();
 
     public BookModel(BookDTO dto) {
         this(   dto.getISBN(),
                 dto.getTitle(),
-//                dto.getAuthorsNames(),
-//                dto.getGenresNames(),
+                dto.getAuthorsNames(),
+                dto.getGenresNames(),
                 dto.getPublisherName()
-//                dto.getAvailability()
         );
     }
 
-    public BookModel(String ISBN, String title/*, Set<String> authors, Set<String> genres*/, String publisher/*Boolean availability*/) {
+    private BookModel(String ISBN, String title, Set<String> authors, Set<String> genres, String publisher) {
         setISBN(ISBN);
         setTitle(title);
-//        setAuthors(authors.toString());
+        setAuthors((authors.isEmpty()) ? StringUtils.EMPTY : authors.toString());
         setPublisher(publisher);
-//        setGenres(genres.toString());
-//        setAvailability(availability);
+        setGenres((genres.isEmpty()) ? StringUtils.EMPTY : genres.toString());
     }
 
     public String getISBN() {
@@ -93,17 +90,5 @@ public class BookModel {
 
     public void setGenres(String genres) {
         this.genres.set(genres);
-    }
-
-    public boolean isAvailability() {
-        return availability.get();
-    }
-
-    public BooleanProperty availabilityProperty() {
-        return availability;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability.set(availability);
     }
 }

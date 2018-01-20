@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Class having basic search utilities
@@ -52,12 +54,14 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
             CriteriaQuery<T> query = criteriaBuilder.createQuery(getTargetDTOClass());
             Root<E> root = query.from(getEntityClass());
 
-            query.select(getConstruct(root, query, criteriaBuilder));
-                    //.where(specification.toPredicate(root, query, criteriaBuilder));
+            query.select(getConstruct(root, query, criteriaBuilder))
+                    .where(specification.toPredicate(root, query, criteriaBuilder));
 
-            return entityManager.createQuery(query)
+            List<T> result = entityManager.createQuery(query)
                     .setMaxResults(maxResults)
                     .getResultList();
+
+            return decorateResults(result, entityManager);
 
         } finally {
             transaction.commit();
@@ -65,9 +69,9 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
         }
     }
 
-    protected abstract Class<E> getEntityClass();
-
-    protected abstract Class<T> getTargetDTOClass();
+    private Session openSession() {
+        return HibernateUtil.getSessionFactory().openSession();
+    }
 
     public final void invokeInSession(Consumer<Session> body) {
         Session session = openSession();
@@ -79,9 +83,13 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
         session.close();
     }
 
-    private Session openSession() {
-        return HibernateUtil.getSessionFactory().openSession();
+    protected List<T> decorateResults(List<T> undecorated, EntityManager entityManager) {
+        return undecorated;
     }
+
+    protected abstract Class<E> getEntityClass();
+
+    protected abstract Class<T> getTargetDTOClass();
 
     public abstract CompoundSelection<T> getConstruct(Root<E> root, CriteriaQuery<T> query, CriteriaBuilder cb);
 }
