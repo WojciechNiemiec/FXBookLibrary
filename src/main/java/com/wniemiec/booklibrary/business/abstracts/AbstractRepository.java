@@ -4,6 +4,7 @@ import com.wniemiec.booklibrary.business.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
@@ -39,7 +40,14 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
         invokeInSession(session -> session.persist(object));
     }
 
-    public abstract void delete(K id);
+    public void delete(K id) {
+        invokeInSession((session) -> session.delete(session.load(getEntityClass(), id)));
+    }
+
+    public final List<T> findAll() {
+        return findAll(Specifications.where((root, criteriaQuery, criteriaBuilder) ->
+                        criteriaBuilder.conjunction()), MAX_RESULTS);
+    }
 
     public final List<T> findAll(Specification<E> specification) {
         return findAll(specification, MAX_RESULTS);
@@ -54,7 +62,7 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
             CriteriaQuery<T> query = criteriaBuilder.createQuery(getTargetDTOClass());
             Root<E> root = query.from(getEntityClass());
 
-            query.select(getConstruct(root, query, criteriaBuilder))
+            query.select(getConstruct(root, criteriaBuilder))
                     .where(specification.toPredicate(root, query, criteriaBuilder));
 
             List<T> result = entityManager.createQuery(query)
@@ -73,7 +81,7 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
         return HibernateUtil.getSessionFactory().openSession();
     }
 
-    public final void invokeInSession(Consumer<Session> body) {
+    private void invokeInSession(Consumer<Session> body) {
         Session session = openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -91,5 +99,5 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
 
     protected abstract Class<T> getTargetDTOClass();
 
-    public abstract CompoundSelection<T> getConstruct(Root<E> root, CriteriaQuery<T> query, CriteriaBuilder cb);
+    public abstract CompoundSelection<T> getConstruct(Root<E> root, CriteriaBuilder cb);
 }

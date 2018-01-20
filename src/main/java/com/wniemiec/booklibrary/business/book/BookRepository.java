@@ -17,11 +17,6 @@ import java.util.stream.Collectors;
 public class BookRepository extends AbstractRepository<Book, Long, BookDTO> {
 
     @Override
-    public void delete(Long id) {
-        invokeInSession((session) -> session.delete(session.load(Book.class, id)));
-    }
-
-    @Override
     protected Class<Book> getEntityClass() {
         return Book.class;
     }
@@ -32,7 +27,7 @@ public class BookRepository extends AbstractRepository<Book, Long, BookDTO> {
     }
 
     @Override
-    public CompoundSelection<BookDTO> getConstruct(Root<Book> root, CriteriaQuery<BookDTO> query, CriteriaBuilder cb) {
+    public CompoundSelection<BookDTO> getConstruct(Root<Book> root, CriteriaBuilder cb) {
         return cb.construct(BookDTO.class, root.get(Book_.id), root.get(Book_.ISBN),
                 root.get(Book_.title), root.join(Book_.publisher, JoinType.LEFT).get(Publisher_.name));
     }
