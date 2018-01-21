@@ -63,6 +63,7 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
             Root<E> root = query.from(getEntityClass());
 
             query.select(getConstruct(root, criteriaBuilder))
+                    .distinct(true)
                     .where(specification.toPredicate(root, query, criteriaBuilder));
 
             List<T> result = entityManager.createQuery(query)

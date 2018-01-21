@@ -7,6 +7,7 @@ import com.wniemiec.booklibrary.business.genre.Genre;
 import com.wniemiec.booklibrary.business.genre.Genre_;
 import com.wniemiec.booklibrary.business.publisher.Publisher_;
 import com.wniemiec.booklibrary.business.util.IdToValue;
+import org.apache.commons.collections4.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
@@ -34,6 +35,8 @@ public class BookRepository extends AbstractRepository<Book, Long, BookDTO> {
 
     @Override
     protected List<BookDTO> decorateResults(List<BookDTO> undecorated, EntityManager entityManager) {
+        if (CollectionUtils.isEmpty(undecorated)) return undecorated;
+
         List<Long> ids = undecorated.stream().map(BookDTO::getId).collect(Collectors.toList());
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
