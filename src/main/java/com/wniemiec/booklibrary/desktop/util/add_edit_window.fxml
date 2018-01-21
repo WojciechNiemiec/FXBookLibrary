@@ -7,11 +7,10 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<BorderPane fx:controller="com.wniemiec.booklibrary.desktop.book.author.AddEditAuthorController"
-            maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="246.0"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="246.0"
             prefWidth="529.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <right>
-        <ListView fx:id="selectedAuthorsList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <ListView fx:id="selectedObjectsList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <opaqueInsets>
                 <Insets/>
             </opaqueInsets>
@@ -21,7 +20,7 @@
         </ListView>
     </right>
     <left>
-        <ListView fx:id="allAuthorsList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <ListView fx:id="allObjectsList" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
             </BorderPane.margin>
