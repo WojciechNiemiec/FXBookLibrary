@@ -3,6 +3,7 @@ package com.wniemiec.booklibrary.business.renting;
 import com.wniemiec.booklibrary.business.book_copy.BookCopy;
 import com.wniemiec.booklibrary.business.reader.Reader;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.time.ZonedDateTime;
 
 @Entity(name = "renting")
 @Data
+@EqualsAndHashCode(exclude = {"bookCopy", "reader"})
 public class Renting implements Serializable {
 
     @Id

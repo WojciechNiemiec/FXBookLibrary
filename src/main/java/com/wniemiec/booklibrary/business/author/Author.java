@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity(name = "author")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "books")
 public class Author extends AbstractPerson {
     @ManyToOne
     private Country country;

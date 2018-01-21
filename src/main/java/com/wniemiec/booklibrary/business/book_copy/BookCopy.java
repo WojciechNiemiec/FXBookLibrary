@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity(name = "book_copy")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"release", "rentings"})
 public class BookCopy extends AbstractEntity {
     @Column(name = "book_condition")
     private String bookCondition;

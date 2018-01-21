@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity(name = "book")
 @Data
 @Setter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"publisher", "authors", "releases", "genres"})
 public class Book extends AbstractEntity {
     @Column(name = "isbn", unique = true, length = 13)
     private String ISBN;
@@ -33,7 +33,7 @@ public class Book extends AbstractEntity {
     @ManyToMany
     private Set<Author> authors;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<Release> releases;
 
     @ManyToMany

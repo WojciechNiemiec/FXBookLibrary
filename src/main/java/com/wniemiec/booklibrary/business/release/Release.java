@@ -3,6 +3,7 @@ package com.wniemiec.booklibrary.business.release;
 import com.wniemiec.booklibrary.business.abstracts.AbstractEntity;
 import com.wniemiec.booklibrary.business.book.Book;
 import com.wniemiec.booklibrary.business.book_copy.BookCopy;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +13,8 @@ import java.util.List;
 
 @Entity(name = "book_release")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@Builder
+@EqualsAndHashCode(callSuper = true, exclude = {"book", "bookCopies"})
 public class Release extends AbstractEntity {
     @Column(name = "release_date")
     private ZonedDateTime releaseDate;

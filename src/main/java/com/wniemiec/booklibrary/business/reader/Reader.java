@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Entity(name = "reader")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "rentings")
 public class Reader extends AbstractPerson {
     @Column(name = "birth_date")
     private ZonedDateTime birthDate;

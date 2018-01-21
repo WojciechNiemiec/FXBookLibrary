@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity(name = "genre")
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "books")
 public class Genre extends AbstractEntity {
     @Column(name = "name")
     private String name;
