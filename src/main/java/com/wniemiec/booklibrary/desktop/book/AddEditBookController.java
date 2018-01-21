@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AddBookController implements Initializable {
+public class AddEditBookController implements Initializable {
     private final BookRepository bookRepository = new BookRepository();
     private final PublisherRepository publisherRepository = new PublisherRepository();
     private final AuthorRepository authorRepository = new AuthorRepository();

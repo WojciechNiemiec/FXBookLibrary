@@ -84,7 +84,7 @@ public class MainWindowController {
     @FXML
     private void addBook() throws IOException {
         Stage stage = new Stage();
-        Parent load = FXMLLoader.load(getClass().getResource("book/add_book_window.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("book/add_edit_book_window.fxml"));
 
         Scene scene = new Scene(load);
         stage.setScene(scene);
@@ -102,7 +102,7 @@ public class MainWindowController {
 
         if (editReaderButton.equals(e.getSource())) {
             Long id = readerTable.getSelectionModel().getSelectedItem().getId();
-            loader.<AddEditReaderController>getController().setId(id);
+            loader.<AddEditReaderController>getController().loadReaderToUpdate(id);
         }
 
         stage.setScene(scene);
