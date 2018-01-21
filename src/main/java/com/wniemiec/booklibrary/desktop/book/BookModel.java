@@ -9,6 +9,7 @@ import java.util.Set;
 
 public class BookModel {
 
+    private final Long id;
     private final StringProperty ISBN = new SimpleStringProperty("");
     private final StringProperty title = new SimpleStringProperty("");
     private final StringProperty authors = new SimpleStringProperty("");
@@ -16,7 +17,8 @@ public class BookModel {
     private final StringProperty publisher = new SimpleStringProperty("");
 
     public BookModel(BookDTO dto) {
-        this(   dto.getISBN(),
+        this(   dto.getId(),
+                dto.getISBN(),
                 dto.getTitle(),
                 dto.getAuthorsNames(),
                 dto.getGenresNames(),
@@ -24,12 +26,17 @@ public class BookModel {
         );
     }
 
-    private BookModel(String ISBN, String title, Set<String> authors, Set<String> genres, String publisher) {
+    private BookModel(Long id, String ISBN, String title, Set<String> authors, Set<String> genres, String publisher) {
+        this.id = id;
         setISBN(ISBN);
         setTitle(title);
         setAuthors((authors.isEmpty()) ? StringUtils.EMPTY : authors.toString());
         setPublisher(publisher);
         setGenres((genres.isEmpty()) ? StringUtils.EMPTY : genres.toString());
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getISBN() {

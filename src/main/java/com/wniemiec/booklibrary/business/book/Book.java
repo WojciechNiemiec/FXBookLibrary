@@ -5,10 +5,7 @@ import com.wniemiec.booklibrary.business.author.Author;
 import com.wniemiec.booklibrary.business.genre.Genre;
 import com.wniemiec.booklibrary.business.publisher.Publisher;
 import com.wniemiec.booklibrary.business.release.Release;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,6 +13,7 @@ import java.util.Set;
 @Entity(name = "book")
 @Data
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true, exclude = {"publisher", "authors", "releases", "genres"})
 public class Book extends AbstractEntity {
     @Column(name = "isbn", unique = true, length = 13)

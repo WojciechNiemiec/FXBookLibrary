@@ -44,4 +44,10 @@ public class MainWindowController {
         stage.setTitle("Add Book");
         stage.show();
     }
+
+    @FXML
+    private void deleteBook() throws IOException {
+        Long bookId = bookTable.getSelectionModel().getSelectedItem().getId();
+        bookRepository.delete(bookId);
+    }
 }
