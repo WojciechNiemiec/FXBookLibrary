@@ -3,12 +3,11 @@ package com.wniemiec.booklibrary.desktop;
 import com.sun.javafx.collections.ObservableSequentialListWrapper;
 import com.wniemiec.booklibrary.business.book.BookRepository;
 import com.wniemiec.booklibrary.business.book.BookSpecifications;
-import com.wniemiec.booklibrary.business.book.Book_;
 import com.wniemiec.booklibrary.business.reader.ReaderRepository;
+import com.wniemiec.booklibrary.business.reader.ReaderSpecifications;
 import com.wniemiec.booklibrary.desktop.book.BookModel;
 import com.wniemiec.booklibrary.desktop.reader.ReaderModel;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +18,7 @@ import javafx.stage.Stage;
 import org.springframework.data.jpa.domain.Specifications;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +27,11 @@ public class MainWindowController {
     private final BookRepository bookRepository = new BookRepository();
     private final ReaderRepository readerRepository = new ReaderRepository();
 
-    public TextField bookSearchField;
+    @FXML
+    private TextField bookSearchField;
+
+    @FXML
+    private TextField readerSearchField;
 
     @FXML
     private TableView<BookModel> bookTable;
@@ -51,7 +55,17 @@ public class MainWindowController {
 
     @FXML
     private void searchReaders(ActionEvent e) {
-        List<ReaderModel> models = readerRepository.findAll()
+        String param = readerSearchField.getText();
+        BigDecimal pesel = BigDecimal.ZERO;
+
+        if (param.matches("^[0-9]+$")) {
+            pesel = BigDecimal.valueOf(Long.valueOf(param));
+        }
+
+        List<ReaderModel> models = readerRepository.findAll(Specifications
+                .where(ReaderSpecifications.nameLike(param))
+                .or(ReaderSpecifications.surnameLike(param))
+                .or(ReaderSpecifications.peselEqual(pesel)))
                 .stream()
                 .map(ReaderModel::new)
                 .collect(Collectors.toList());

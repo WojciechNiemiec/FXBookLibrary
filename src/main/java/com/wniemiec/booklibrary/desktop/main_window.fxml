@@ -170,7 +170,7 @@
                                     <children>
                                         <FlowPane prefHeight="200.0" prefWidth="200.0">
                                             <children>
-                                                <TextField text="Write name, pesel...">
+                                                <TextField fx:id="readerSearchField" text="Write name, pesel...">
                                                     <FlowPane.margin>
                                                         <Insets right="5.0" />
                                                     </FlowPane.margin>
