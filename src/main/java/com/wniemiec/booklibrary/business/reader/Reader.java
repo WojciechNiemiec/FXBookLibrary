@@ -3,8 +3,10 @@ package com.wniemiec.booklibrary.business.reader;
 import com.wniemiec.booklibrary.business.abstracts.AbstractPerson;
 import com.wniemiec.booklibrary.business.address.Address;
 import com.wniemiec.booklibrary.business.renting.Renting;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;

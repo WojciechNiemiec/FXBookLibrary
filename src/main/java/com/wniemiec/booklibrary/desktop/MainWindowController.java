@@ -6,12 +6,14 @@ import com.wniemiec.booklibrary.business.book.BookSpecifications;
 import com.wniemiec.booklibrary.business.reader.ReaderRepository;
 import com.wniemiec.booklibrary.business.reader.ReaderSpecifications;
 import com.wniemiec.booklibrary.desktop.book.BookModel;
+import com.wniemiec.booklibrary.desktop.reader.AddEditReaderController;
 import com.wniemiec.booklibrary.desktop.reader.ReaderModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -32,6 +34,12 @@ public class MainWindowController {
 
     @FXML
     private TextField readerSearchField;
+
+    @FXML
+    private Button addReaderButton;
+
+    @FXML
+    private Button editReaderButton;
 
     @FXML
     private TableView<BookModel> bookTable;
@@ -81,6 +89,24 @@ public class MainWindowController {
         Scene scene = new Scene(load);
         stage.setScene(scene);
         stage.setTitle("Add Book");
+        stage.show();
+    }
+
+    @FXML
+    private void addEditReader(ActionEvent e) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("reader/add_edit_reader_window.fxml"));
+        Parent load = loader.load();
+
+        Scene scene = new Scene(load);
+
+        if (editReaderButton.equals(e.getSource())) {
+            Long id = readerTable.getSelectionModel().getSelectedItem().getId();
+            loader.<AddEditReaderController>getController().setId(id);
+        }
+
+        stage.setScene(scene);
+        stage.setTitle("Add Reader");
         stage.show();
     }
 

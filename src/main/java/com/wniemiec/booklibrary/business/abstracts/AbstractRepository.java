@@ -1,5 +1,6 @@
 package com.wniemiec.booklibrary.business.abstracts;
 
+import com.wniemiec.booklibrary.business.book.Book;
 import com.wniemiec.booklibrary.business.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,12 +37,24 @@ public abstract class AbstractRepository<E, K extends Serializable, T> {
         invokeInSession(session -> objects.forEach(session::save));
     }
 
-    public void update(E object) {
-        invokeInSession(session -> session.persist(object));
+    public void saveOrUpdate(E object) {
+        invokeInSession(session -> session.saveOrUpdate(object));
     }
 
     public void delete(K id) {
         invokeInSession((session) -> session.delete(session.load(getEntityClass(), id)));
+    }
+
+    public final E findById(K id) {
+        Session session = openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            return session.get(getEntityClass(), id);
+        } finally {
+            transaction.commit();
+            session.close();
+        }
     }
 
     public final List<T> findAll() {
