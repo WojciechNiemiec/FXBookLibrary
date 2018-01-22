@@ -49,7 +49,7 @@
                                         </FlowPane>
                                         <FlowPane prefHeight="0.0" prefWidth="281.0" GridPane.rowIndex="1">
                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#addBook" text="Add Book" />
+                                                <Button mnemonicParsing="false" onAction="#addEditBook" text="Add Book" />
                                             </children>
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -75,7 +75,7 @@
                                                         <Insets right="5.0" />
                                                     </FlowPane.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" text="Edit">
+                                                <Button fx:id="editBookButton" mnemonicParsing="false" onAction="#addEditBook" text="Edit">
                                                     <FlowPane.margin>
                                                         <Insets right="5.0" />
                                                     </FlowPane.margin>
@@ -214,7 +214,7 @@
                                                         <Insets right="5.0" />
                                                     </FlowPane.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" text="Delete" />
+                                                <Button mnemonicParsing="false" onAction="#deleteReader" text="Delete" />
                                             </children>
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

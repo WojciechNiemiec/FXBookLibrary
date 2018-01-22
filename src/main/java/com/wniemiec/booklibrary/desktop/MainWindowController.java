@@ -5,6 +5,7 @@ import com.wniemiec.booklibrary.business.book.BookRepository;
 import com.wniemiec.booklibrary.business.book.BookSpecifications;
 import com.wniemiec.booklibrary.business.reader.ReaderRepository;
 import com.wniemiec.booklibrary.business.reader.ReaderSpecifications;
+import com.wniemiec.booklibrary.desktop.book.AddEditBookController;
 import com.wniemiec.booklibrary.desktop.book.BookModel;
 import com.wniemiec.booklibrary.desktop.reader.AddEditReaderController;
 import com.wniemiec.booklibrary.desktop.reader.ReaderModel;
@@ -22,6 +23,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MainWindowController {
@@ -36,7 +38,7 @@ public class MainWindowController {
     private TextField readerSearchField;
 
     @FXML
-    private Button addReaderButton;
+    private Button editBookButton;
 
     @FXML
     private Button editReaderButton;
@@ -82,11 +84,21 @@ public class MainWindowController {
     }
 
     @FXML
-    private void addBook() throws IOException {
+    private void addEditBook(ActionEvent e) throws IOException {
         Stage stage = new Stage();
-        Parent load = FXMLLoader.load(getClass().getResource("book/add_edit_book_window.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("book/add_edit_book_window.fxml"));
+        Parent load = loader.load();
 
         Scene scene = new Scene(load);
+
+        if (editBookButton.equals(e.getSource())) {
+            BookModel bookModel = bookTable.getSelectionModel().getSelectedItem();
+            if (Objects.nonNull(bookModel)) {
+                Long id = bookModel.getId();
+                loader.<AddEditBookController>getController().loadBookToUpdate(id);
+            }
+        }
+
         stage.setScene(scene);
         stage.setTitle("Add Book");
         stage.show();
@@ -101,8 +113,11 @@ public class MainWindowController {
         Scene scene = new Scene(load);
 
         if (editReaderButton.equals(e.getSource())) {
-            Long id = readerTable.getSelectionModel().getSelectedItem().getId();
-            loader.<AddEditReaderController>getController().loadReaderToUpdate(id);
+            ReaderModel readerModel = readerTable.getSelectionModel().getSelectedItem();
+            if (Objects.nonNull(readerModel)) {
+                Long id = readerModel.getId();
+                loader.<AddEditReaderController>getController().loadReaderToUpdate(id);
+            }
         }
 
         stage.setScene(scene);
@@ -112,7 +127,20 @@ public class MainWindowController {
 
     @FXML
     private void deleteBook() throws IOException {
-        Long bookId = bookTable.getSelectionModel().getSelectedItem().getId();
-        bookRepository.delete(bookId);
+        BookModel bookModel = bookTable.getSelectionModel().getSelectedItem();
+        if (Objects.nonNull(bookModel)) {
+            Long bookId = bookModel.getId();
+            bookRepository.delete(bookId);
+        }
     }
+
+    @FXML
+    private void deleteReader() throws IOException {
+        ReaderModel readerModel = readerTable.getSelectionModel().getSelectedItem();
+        if (Objects.nonNull(readerModel)) {
+            Long readerId = readerModel.getId();
+            readerRepository.delete(readerId);
+        }
+    }
+
 }

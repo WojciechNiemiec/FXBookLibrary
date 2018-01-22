@@ -32,10 +32,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.time.ZonedDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddEditBookController implements Initializable {
@@ -71,9 +68,22 @@ public class AddEditBookController implements Initializable {
 
     private ObservableList<ZonedDateTime> releaseDates;
 
+    private Book bookToUpdate;
+
+    public void loadBookToUpdate(Long id) {
+        bookToUpdate = bookRepository.findById(id);
+
+        ISBN.setText(bookToUpdate.getISBN());
+        title.setText(bookToUpdate.getTitle());
+        description.setText(bookToUpdate.getDescription());
+
+        Publisher publisher = bookToUpdate.getPublisher();
+        this.publisher.getSelectionModel().select(new PublisherDTO(publisher.getId(), publisher.getName()));
+    }
+
     @FXML
     private void saveBook(ActionEvent e) {
-        Book book = new Book();
+        Book book = (Objects.nonNull(bookToUpdate)) ? bookToUpdate : new Book();
         book.setISBN(ISBN.getText());
         book.setTitle(title.getText());
         book.setDescription(description.getText());
@@ -109,7 +119,7 @@ public class AddEditBookController implements Initializable {
                     ).collect(Collectors.toSet()));
         }
 
-        bookRepository.save(book);
+        bookRepository.saveOrUpdate(book);
     }
 
     @Override
